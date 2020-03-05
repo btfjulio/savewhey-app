@@ -40,10 +40,7 @@ CategoriesScreen.navigationOptions = {
   },
   headerTintColor: "white",
   headerTitleStyle: {
-    fontWeight: "bold",
-    textAlign: "center",
-    flexGrow: 1,
-    alignSelf: "center"
+    fontWeight: "bold"
   }
 };
 
