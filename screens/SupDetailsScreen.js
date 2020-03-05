@@ -1,10 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 
 const SupDetailsScreen = props => {
   return (
     <View style={styles.screen}>
       <Text>Categories Screen</Text>
+      <Button
+        title="Voltar para Promoções"
+        onPress={() => {
+          props.navigation.popToTop();
+        }}
+      />
     </View>
   );
 };
