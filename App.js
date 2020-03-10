@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+import { enableScreens } from "react-native-screens"
 
 import SupsNavigator from './navigation/SupsNavigation'
+
+enableScreens();
 
 const fetchFonts = () => {
   return Font.loadAsync({
