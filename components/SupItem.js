@@ -7,12 +7,12 @@ import {
   ImageBackground
 } from "react-native";
 
-const MealItem = props => {
+const SupItem = props => {
   return (
-    <View style={styles.mealItem}>
-      <TouchableOpacity onPress={props.onSelectMeal}>
+    <View style={styles.supItem}>
+      <TouchableOpacity onPress={props.onSelectSup}>
         <View>
-          <View style={{ ...styles.mealRow, ...styles.mealHeader }}>
+          <View style={{ ...styles.supRow, ...styles.supHeader }}>
             <ImageBackground
               source={{ uri: props.image }}
               style={styles.bgImage}
@@ -24,7 +24,7 @@ const MealItem = props => {
               </View>
             </ImageBackground>
           </View>
-          <View style={{ ...styles.mealRow, ...styles.mealDetail }}>
+          <View style={{ ...styles.supRow, ...styles.supDetail }}>
             <Text>{props.duration}m</Text>
             <Text>{props.complexity.toUpperCase()}</Text>
             <Text>{props.affordability.toUpperCase()}</Text>
@@ -36,7 +36,7 @@ const MealItem = props => {
 };
 
 const styles = StyleSheet.create({
-  mealItem: {
+  supItem: {
     height: 200,
     width: "100%",
     backgroundColor: "#f5f5f5",
@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "flex-end"
   },
-  mealRow: {
+  supRow: {
     flexDirection: "row"
   },
-  mealHeader: {
+  supHeader: {
     height: "85%"
   },
-  mealDetail: {
+  supDetail: {
     paddingHorizontal: 10,
     justifyContent: "space-between",
     alignItems: "center",
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MealItem;
+export default SupItem;

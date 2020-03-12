@@ -13,6 +13,19 @@ import SupDetailsScreen from "../screens/SupDetailsScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import Colors from "../constants/Colors";
 
+const defaultStackNavOptions = {
+  headerStyle: {
+    backgroundColor: Colors.primaryColor
+  },
+  headerTintColor: "white",
+  headerTitleStyle: {
+    fontWeight: "bold",
+    fontFamily: "open-sans-bold",
+    fontSize: 25
+  },
+  headerTitleAlign: "center"
+};
+
 const SupsNavigator = createStackNavigator(
   {
     Categories: {
@@ -26,20 +39,15 @@ const SupsNavigator = createStackNavigator(
     },
     SupDetails: SupDetailsScreen
   },
+  { defaultNavigationOptions: defaultStackNavOptions }
+);
+
+const FavNavigator = createStackNavigator(
   {
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: Colors.primaryColor
-      },
-      headerTintColor: "white",
-      headerTitleStyle: {
-        fontWeight: "bold",
-        fontFamily: "open-sans-bold",
-        fontSize: 25
-      },
-      headerTitleAlign: "center"
-    }
-  }
+    Favorites: FavoritesScreen,
+    SupDetail: SupDetailsScreen
+  },
+  { defaultNavigationOptions: defaultStackNavOptions }
 );
 
 const tabConfigNavigator = {
@@ -56,7 +64,7 @@ const tabConfigNavigator = {
     }
   },
   Favorites: {
-    screen: FavoritesScreen,
+    screen: FavNavigator,
     navigationOptions: {
       tabBarIcon: tabInfo => {
         return <Ionicons name="ios-star" size={30} color={tabInfo.tintColor} />;
