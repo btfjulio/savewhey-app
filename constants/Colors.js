@@ -1,4 +1,7 @@
 export default {
-  primaryColor: "#fa163f",
-  accentColor: "#12cad6"
+  primaryColor: "#D24150",
+  accentColor: "#15031B",
+  yellowPallete: "#FFB758",
+  magentaPallete: "#A10856",
+  orangePallete: "#E97254"
 };

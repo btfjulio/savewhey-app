@@ -1,8 +1,9 @@
 import React from "react";
-import { Platform } from "react-native";
+import { Platform, Text } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createAppContainer } from "react-navigation";
+import { createDrawerNavigator } from "react-navigation-drawer";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -11,17 +12,20 @@ import CategoriesScreen from "../screens/CategoriesScreen";
 import CategorySupsScreen from "../screens/CategorySupsScreen";
 import SupDetailsScreen from "../screens/SupDetailsScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
+import FiltersScreen from "../screens/FiltersScreen";
 import Colors from "../constants/Colors";
 
 const defaultStackNavOptions = {
   headerStyle: {
-    backgroundColor: Colors.primaryColor
+    backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
   },
-  headerTintColor: "white",
+  headerTintColor: Platform.OS === 'android' ? "white" : Colors.primaryColor ,
   headerTitleStyle: {
-    fontWeight: "bold",
     fontFamily: "open-sans-bold",
-    fontSize: 25
+    fontSize: 20
+  },
+  headerBackTitleStyle: {
+    fontFamily: "open-sans"
   },
   headerTitleAlign: "center"
 };
@@ -57,10 +61,16 @@ const tabConfigNavigator = {
     navigationOptions: {
       tabBarIcon: tabInfo => {
         return (
-          <Ionicons name="ios-restaurant" size={30} color={tabInfo.tintColor} />
+          <Ionicons name="ios-flash" size={30} color={tabInfo.tintColor} />
         );
       },
-      tabBarColor: Colors.primaryColor
+      tabBarColor: Colors.primaryColor,
+      tabBarLabel:
+        Platform.OS === "android" ? (
+          <Text style={{ fontFamily: "open-sans-bold" }}>Suplementos</Text>
+        ) : (
+          "Suplementos"
+        )
     }
   },
   Favorites: {
@@ -69,7 +79,13 @@ const tabConfigNavigator = {
       tabBarIcon: tabInfo => {
         return <Ionicons name="ios-star" size={30} color={tabInfo.tintColor} />;
       },
-      tabBarColor: Colors.accentColor
+      tabBarColor: Colors.accentColor,
+      tabBarLabel:
+        Platform.OS === "android" ? (
+          <Text style={{ fontFamily: "open-sans-bold" }}>Favoritos</Text>
+        ) : (
+          "Favorites"
+        )
     }
   }
 };
@@ -81,8 +97,38 @@ const SupsFavTabNavigator =
       })
     : createBottomTabNavigator(tabConfigNavigator, {
         tabBarOptions: {
-          activeTintColor: Colors.accentColor
+          labelStyle: {
+            fontFamily: "open-sans"
+          },
+          activeTintColor: Colors.primaryColor
         }
       });
 
-export default createAppContainer(SupsFavTabNavigator);
+const FiltersNavigator = createStackNavigator(
+  {
+    Filters: FiltersScreen
+  },
+  { defaultNavigationOptions: defaultStackNavOptions }
+);
+const MainNavigator = createDrawerNavigator(
+  {
+    SupsFav: {
+      screen: SupsFavTabNavigator,
+      navigationOptions: { drawerLabel: "Suplementos" }
+    },
+    Filters: FiltersNavigator
+  },
+  {
+    drawerBackgroundColor: Colors.primaryColor,
+    contentOptions: {
+      inactiveTintColor: "white",
+      activeTintColor: "white",
+      labelStyle: {
+        fontFamily: "open-sans-bold",
+        fontSize: 20
+      }
+    }
+  }
+);
+
+export default createAppContainer(MainNavigator);

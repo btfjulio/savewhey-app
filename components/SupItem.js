@@ -7,6 +7,9 @@ import {
   ImageBackground
 } from "react-native";
 
+import DefaultText from '../components/DefaultText'
+import Colors from "../constants/Colors";
+
 const SupItem = props => {
   return (
     <View style={styles.supItem}>
@@ -25,9 +28,9 @@ const SupItem = props => {
             </ImageBackground>
           </View>
           <View style={{ ...styles.supRow, ...styles.supDetail }}>
-            <Text>{props.duration}m</Text>
-            <Text>{props.complexity.toUpperCase()}</Text>
-            <Text>{props.affordability.toUpperCase()}</Text>
+            <DefaultText>{props.duration}m</DefaultText>
+            <DefaultText>{props.complexity.toUpperCase()}</DefaultText>
+            <DefaultText>{props.affordability.toUpperCase()}</DefaultText>
           </View>
         </View>
       </TouchableOpacity>
@@ -39,7 +42,7 @@ const styles = StyleSheet.create({
   supItem: {
     height: 200,
     width: "100%",
-    backgroundColor: "#f5f5f5",
+    backgroundColor: Colors.accentColor,
     borderRadius: 10,
     overflow: "hidden",
     marginVertical: 10

@@ -8,6 +8,10 @@ import {
   Platform
 } from "react-native";
 
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+
+import HeaderButton from "../components/HeaderButton";
+
 import CategoryGridTile from "../components/CategoryGridTile";
 import { CATEGORIES } from "../data/dummy-data";
 import Colors from "../constants/Colors";
@@ -32,6 +36,23 @@ const CategoriesScreen = props => {
   return (
     <FlatList data={CATEGORIES} renderItem={renderGridItem} numColumns={2} />
   );
+};
+
+CategoriesScreen.navigationOptions = navData => {
+  return {
+    headerTitle: "Sups Categories",
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Menu"
+          iconName="ios-menu"
+          onPress={() => {
+            navData.navigation.toggleDrawer();
+          }}
+        />
+      </HeaderButtons>
+    )
+  };
 };
 
 const styles = StyleSheet.create({
