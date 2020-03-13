@@ -1,11 +1,17 @@
 import React from "react";
-import { CATEGORIES, MEALS } from "../data/dummy-data";
+// alows to select a global management state and use it in this component
+import { useSelector } from "react-redux";
+
+import { CATEGORIES } from "../data/dummy-data";
 import SupList from "../components/SupList";
 
 const CategorySupsScreen = props => {
   const catId = props.navigation.getParam("categoryId");
-  const displayedMeals = MEALS.filter(meal => meal.categoryIds.includes(catId));
-  return <SupList list={displayedMeals} navigation={props.navigation} />;
+  const availableItems = useSelector(state => state.items.filteredItems)
+  const displayedItems = availableItems.filter(meal =>
+    meal.categoryIds.includes(catId)
+  );
+  return <SupList list={displayedItems} navigation={props.navigation} />;
 };
 
 CategorySupsScreen.navigationOptions = navigationData => {

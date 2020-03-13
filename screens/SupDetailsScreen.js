@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import {
   ScrollView,
   Image,
@@ -8,11 +8,11 @@ import {
   Button
 } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector, useDispatch } from "react-redux";
 
 import DefaultText from "../components/DefaultText";
 import CustomHeaderButton from "../components/HeaderButton";
-
-import { MEALS } from "../data/dummy-data";
+import { toggleFavorite } from "../store/actions/items";
 
 const ListItem = props => {
   return (
@@ -23,9 +23,21 @@ const ListItem = props => {
 };
 
 const SupDetailsScreen = props => {
-  const selectedItem = MEALS.find(
+  const availableItems = useSelector(state => state.items.items);
+  const selectedItem = availableItems.find(
     item => item.id === props.navigation.getParam("itemId")
   );
+
+  const dispatch = useDispatch();
+
+  const toggleFavoriteHandler = useCallback(() => {
+    dispatch(toggleFavorite(selectedItem.id));
+  }, [dispatch, selectedItem.id]);
+
+  useEffect(() => {
+    props.navigation.setParams({ toggleFav: toggleFavoriteHandler });
+  }, [toggleFavoriteHandler]);
+
   return (
     <ScrollView>
       <Image source={{ uri: selectedItem.imageUrl }} style={styles.image} />
@@ -47,16 +59,16 @@ const SupDetailsScreen = props => {
 };
 
 SupDetailsScreen.navigationOptions = navigationData => {
-  const itemId = navigationData.navigation.getParam("itemId");
-  const selectedItem = MEALS.find(item => item.id === itemId);
+  const itemTitle = navigationData.navigation.getParam("itemTitle");
+  const toggleFavorite = navigationData.navigation.getParam("toggleFav");
   return {
-    headerTitle: selectedItem.title,
+    headerTitle: itemTitle,
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
         <Item
           title="Favorite"
           iconName="ios-star"
-          onPress={() => console.log("mark as favorite")}
+          onPress={() => toggleFavorite}
         />
       </HeaderButtons>
     )

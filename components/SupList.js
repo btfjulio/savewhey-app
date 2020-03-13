@@ -16,7 +16,8 @@ const SupList = props => {
           props.navigation.navigate({
             routeName: "SupDetails",
             params: {
-              itemId: itemData.item.id
+              itemId: itemData.item.id,
+              itemTitle: itemData.item.title
             }
           });
         }}
